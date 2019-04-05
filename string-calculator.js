@@ -4,21 +4,25 @@
 // SYNC init (like read conf file)
 
 function  StringCalculator() {
+  const SEPARATOR = ','
 
-  var internal
+  const add = (numbers) => {
+    if (!numbers) {
+      return 0
+    }
+    const numbersToAdd = numbers.split(SEPARATOR).map(number => {
+      return string2Number(number) 
+    })
+    return numbersToAdd.reduce( (a, b) =>  {
+      return parseInt(a) + parseInt(b)
+    }, 0)
+  }
+  const string2Number = number => parseInt(number)
 
   return {
     add: add
   }
 
-  function privateStuff () {
-    var stuff
-    return stuff
-  }
-
-  function add () {
-    return 0
-  }
 }
 
 module.exports = StringCalculator
