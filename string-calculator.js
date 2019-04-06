@@ -4,16 +4,18 @@
 // SYNC init (like read conf file)
 
 function  StringCalculator() {
-  const SEPARATOR = ','
-  const string2Number = (number) => parseInt(number)
-  
+  const SEPARATORS = [',', '\n']
+  const toNumber = (number) => parseInt(number)
+  const convertAStringIntoNumbers = (numbers) => {
+    const regularExpressionMultipleSeparators = new RegExp(SEPARATORS.join('|'), 'g') // ,|\n
+    return numbers.split(regularExpressionMultipleSeparators)
+  } 
+
   const add = (numbers) => {
     if (!numbers) {
       return 0
     }
-    const numbersToAdd = numbers.split(SEPARATOR).map(number => {
-      return string2Number(number) 
-    })
+    const numbersToAdd = convertAStringIntoNumbers(numbers).map(number => toNumber(number)) 
     return numbersToAdd.reduce( (a, b) =>  {
       return parseInt(a) + parseInt(b)
     }, 0)
@@ -21,7 +23,6 @@ function  StringCalculator() {
   return {
     add: add
   }
-
 }
 
 module.exports = StringCalculator

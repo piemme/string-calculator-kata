@@ -24,6 +24,17 @@ test('should get 4 for "2,2"', t => {
   t.equal(calculator.add('2,2'), 4)
 })
 
+test('should get 9 for "3,3,3"', t => {
+  t.plan(1)
+  t.equal(calculator.add('3,3,3'), 9)
+})
+
+test("should get a sum for string with multiple separators: like \"1\\n2,3\" is 6 and like \"1,2\\4\" is 7", t => {
+  t.plan(2)
+  t.equal(calculator.add("1\n2,3"), 6)
+  t.equal(calculator.add("1,2\n4"), 7)
+})
+
 /**
  * Returns a random integer between min (inclusive) and max (inclusive).
  * The value is no lower than min (or the next integer greater than min
