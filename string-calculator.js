@@ -5,7 +5,8 @@
 
 function  StringCalculator() {
   const SEPARATOR = ','
-
+  const string2Number = (number) => parseInt(number)
+  
   const add = (numbers) => {
     if (!numbers) {
       return 0
@@ -17,8 +18,6 @@ function  StringCalculator() {
       return parseInt(a) + parseInt(b)
     }, 0)
   }
-  const string2Number = number => parseInt(number)
-
   return {
     add: add
   }
