@@ -4,18 +4,34 @@
 // SYNC init (like read conf file)
 
 function  StringCalculator() {
-  const SEPARATORS = [',', '\n']
+  const DEFAULT_SEPARATORS = [',', '\n']
+
   const toNumber = (number) => parseInt(number)
-  const convertAStringIntoNumbers = (numbers) => {
-    const regularExpressionMultipleSeparators = new RegExp(SEPARATORS.join('|'), 'g') // ,|\n
+  const convertAStringIntoNumbers = (numbers, separators) => {
+    const regularExpressionMultipleSeparators = new RegExp(separators.join('|'), 'g') // ,|\n
     return numbers.split(regularExpressionMultipleSeparators)
   } 
+  const inputAsCustomPatternForSeparator = (input) => input.startsWith('\\')
+  const getCustomSeparator = (input) => {
+    if (inputAsCustomPatternForSeparator(input)) {
+      return [input.split('\n')[0]]
+    }
+    return DEFAULT_SEPARATORS
+  }
+  const getNumbers = (input) => {
+    if (inputAsCustomPatternForSeparator(input)) {
+      return input.split('\n')[1]
+    }
+    return input
+  }
 
-  const add = (numbers) => {
-    if (!numbers) {
+  const add = (input) => {
+    if (!input) {
       return 0
     }
-    const numbersToAdd = convertAStringIntoNumbers(numbers).map(number => toNumber(number)) 
+    let numbers = getNumbers(input)
+    let separators = getCustomSeparator(input)
+    const numbersToAdd = convertAStringIntoNumbers(numbers, separators).map(number => toNumber(number)) 
     return numbersToAdd.reduce( (a, b) =>  {
       return parseInt(a) + parseInt(b)
     }, 0)
