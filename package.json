@@ -9,10 +9,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "devDependencies": {},
+  "dependencies": {
     "faucet": "0.0.1",
     "tape": "^4.10.1",
     "tape-catch": "^1.0.6"
-  },
-  "dependencies": {}
+  }
 }
