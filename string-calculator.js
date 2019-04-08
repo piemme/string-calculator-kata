@@ -7,6 +7,12 @@ function  StringCalculator() {
   const DEFAULT_SEPARATORS = [',', '\n']
 
   const toNumber = (number) => parseInt(number)
+  const validateNumber = (number) => {
+    if (Math.sign(number) === -1) {
+      throw new Error(`Negatives not allowed: passed ${number}`)
+    }
+    return number
+  }
   const convertAStringIntoNumbers = (numbers, separators) => {
     const regularExpressionMultipleSeparators = new RegExp(separators.join('|'), 'g') // ,|\n
     return numbers.split(regularExpressionMultipleSeparators)
@@ -31,7 +37,7 @@ function  StringCalculator() {
     }
     let numbers = getNumbers(input)
     let separators = getCustomSeparator(input)
-    const numbersToAdd = convertAStringIntoNumbers(numbers, separators).map(number => toNumber(number)) 
+    const numbersToAdd = convertAStringIntoNumbers(numbers, separators).map(number => validateNumber(toNumber(number)))
     return numbersToAdd.reduce( (a, b) =>  {
       return parseInt(a) + parseInt(b)
     }, 0)

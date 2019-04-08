@@ -9,11 +9,12 @@ test('should fail!', t => {
   t.notOk(false)
 })
 const functionWithException = () => {
-  throw new Error('boom')
+  throw new Error('boom boom')
 }
 test('should throw an exception', t => {
-  t.plan(1)
-  t.throws(functionWithException, 'boom')
+  t.plan(2)
+  t.throws(functionWithException, 'bang')
+  t.throws(() => functionWithException(), /boom boom/)
 })
 const sum = function (a, b) {
   return (a + b)

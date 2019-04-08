@@ -42,6 +42,11 @@ test("should get a sum for string custom separator: \"//|\\n1|2\" separator is |
   t.equal(calculator.add("\\|\n1|2"), 3)
   t.equal(calculator.add("\\$\n1$2"), 3)
 })
+test("should get an exception if there are negative numbers: '2,-1,3'", t => {
+  t.plan(1)
+  t.throws(() => calculator.add('2,-1,3'), /Negatives not allowed: passed -1/)
+})
+
 
 /**
  * Returns a random integer between min (inclusive) and max (inclusive).
