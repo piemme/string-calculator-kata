@@ -1,5 +1,6 @@
 const test = require('tape-catch')
 const calculator = require('../string-calculator')()
+const utils = require('../lib/utils')()
 
 test('this test should simply should run and return true!', t => {
   t.plan(1)
@@ -15,7 +16,7 @@ test('should get a number for a *single string* passed as argument, like "1" or 
   t.end()
 })
 test('should get a number (the same number) for a *single random string*', t => {
-  const randomNumber = getRandomInt(0, 100)
+  const randomNumber = utils.getRandomInt(0, 100)
   t.equal(calculator.add(randomNumber.toString()), randomNumber)
   t.end()
 })
@@ -43,21 +44,9 @@ test("should get a sum for string custom separator: \"//|\\n1|2\" separator is |
   t.equal(calculator.add("\\$\n1$2"), 3)
 })
 test("should get an exception if there are negative numbers: '2,-1,3'", t => {
-  t.plan(1)
+  t.plan(2)
   t.throws(() => calculator.add('2,-1,3'), /Negatives not allowed: passed -1/)
+  t.throws(() => calculator.add('-2,1,3'), /Negatives not allowed: passed -2/)
 })
 
-
-/**
- * Returns a random integer between min (inclusive) and max (inclusive).
- * The value is no lower than min (or the next integer greater than min
- * if min isn't an integer) and no greater than max (or the next integer
- * lower than max if max isn't an integer).
- * Using Math.round() will give you a non-uniform distribution!
- */
-const getRandomInt = (min, max) => {
-    min = Math.ceil(min)
-    max = Math.floor(max)
-    return Math.floor(Math.random() * (max - min + 1)) + min
-}
 
